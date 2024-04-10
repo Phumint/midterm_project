@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="robot_arm">
+
+<link name="world"></link>
+
+<link name="base_link">
+    <visual>
+        <geometry>
+            <box size="0.5 0.5 0.1"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    </visual>
+</link>
+
+<link name="cylinder_1">
+    <visual>
+        <geometry>
+            <cylinder length="1" radius="0.2"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+</link>
+
+<link name="cylinder_2">
+    <visual>
+        <geometry>
+            <cylinder length="1" radius="0.1"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    </visual>
+</link>
+
+<joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz = "0 0 0"/>
+</joint>
+
+<joint name="base_to_cylinder_1" type="continuous">
+    <parent link="base_link"/>
+    <child link="cylinder_1"/>
+    <origin rpy = "0 0 0" xyz = "0 0 0.55"/>
+    <axis xyz = "0 0 1"/>
+</joint>
+
+<joint name="cylinder_1_to_cylinder_2" type="revolute">
+    <parent link="cylinder_1"/>
+    <child link="cylinder_2"/>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>  
+    <axis xyz="0 -1.0 0"/>  
+    <limit lower="2" upper="0" velocity="100" effort="100"/>
+  </joint>
+
+</robot>

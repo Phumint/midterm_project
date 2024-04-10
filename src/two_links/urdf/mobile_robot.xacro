@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<robot name="mobile" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find two_links)/urdf/mobile_gazebo.gazebo"/>
+    
+
+    <link name="robot_footprint"></link>
+    <joint name="robot_footprint_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<parent link="robot_footprint"/>
+		<child link="base_link" />
+	</joint>
+    
+    <link name="base_link">
+    <visual>
+        <geometry>
+            <box size="0.35 0.25 0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <material name="blue">
+            <color rgba = "0 0 1 1"/>
+        </material>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.35 0.25 0.05"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+        <inertia
+            ixx="0.1" ixy="0.0" ixz="0.0"
+            iyy="0.1" iyz="0.0"
+            izz="0.1"/>
+    </inertial>
+    </link>
+
+    <!--front left wheel-->
+
+    <link name="wheel_1_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.05" radius="0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+    <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+    </link>
+
+    <joint name="base_to_wheel_1" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_1_link"/>
+        <origin rpy = "1.57 0 0" xyz = "0.125 0.150 0.0"/>
+        <axis xyz = "0 0 1"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+    <!--rear right wheel-->
+
+    <link name="wheel_2_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.05" radius="0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+    <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+    </link>
+
+    <joint name="base_to_wheel_2" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_2_link"/>
+        <origin rpy = "1.57 0 0" xyz = "-0.125 -0.150 0.0"/>
+        <axis xyz = "0 0 1"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+    <!--front right wheel-->
+
+    <link name="wheel_3_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.05" radius="0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+    <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+    </link>
+
+    <joint name="base_to_wheel_3" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_3_link"/>
+        <origin rpy = "1.57 0 0" xyz = "-0.125 0.15 0"/>
+        <axis xyz = "0 0 1"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+    <!--rear left wheel-->
+
+    <link name="wheel_4_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.05" radius="0.05"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.5"/>
+    <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+    </link>
+
+    <joint name="base_to_wheel_4" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_4_link"/>
+        <origin rpy = "1.57 0 0" xyz = "0.125 -0.150 0.0"/>
+        <axis xyz = "0 0 1"/>
+        <dynamics damping="1.0" friction="1.0"/>
+    </joint>
+
+    <!--camera-->
+    <link name="camera_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.02 0.02"/>
+        </geometry>
+        <material name="Cyan1">
+        <color rgba="0 0.9 0.9 1.0"/>
+        </material>
+    </visual> 
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <box size="0.02 0.02 0.02"/>
+    </geometry>
+    </collision>
+    <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="0.5"/>
+        <inertia
+        ixx="0.1" ixy="0.0" ixz="0.0"
+        iyy="0.1" iyz="0.0"
+        izz="0.1"/>
+    </inertial>
+    </link>
+
+    <joint name="camera_to_base" type="fixed">
+        <limit effort="1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0.175 0 0"/>
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+    </joint> 
+
+</robot>

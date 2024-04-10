@@ -1,0 +1,8 @@
+prefix=/home/phumint/rob_pro/install
+
+Name: twolink_description
+Description: Description of twolink_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

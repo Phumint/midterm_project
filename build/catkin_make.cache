@@ -1,0 +1,2 @@
+gazebo_ros_demos/gazebo_tutorials:gazebo_ros_demos/rrbot_control:gazebo_ros_demos/rrbot_description:gazebo_ros_demos/rrbot_gazebo:smb_common/smb_control:smb_common/smb_description:smb_common/smb_gazebo:teleop_twist_keyboard:two_links:twolink_description
+-DCATKIN_DEVEL_PREFIX=/home/phumint/rob_pro/devel -DCMAKE_INSTALL_PREFIX=/home/phumint/rob_pro/install -G Unix Makefiles

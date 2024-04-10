@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<robot>
+  <gazebo reference = "base_link">
+  <mu1>0.2</mu1>
+  <mu2>0.2</mu2>
+  <material>Gazebo/Yellow</material>
+  </gazebo>
+    <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/rrbot</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <!-- camera -->
+  <gazebo reference="camera_link">
+    <sensor type="camera" name="camera1">
+      <visualize>true</visualize>
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>rrbot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <!-- setting hackBaseline to anything but 0.0 will cause a misalignment
+            between the gazebo sensor image and the frame it is supposed to
+            be attached to -->
+        <hackBaseline>0.0</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+        <CxPrime>0</CxPrime>
+        <Cx>0.0</Cx>
+        <Cy>0.0</Cy>
+        <focalLength>0.0</focalLength>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!-- skid steer drive plugin -->
+  <!-- <gazebo>
+  <plugin name="SkidSteerDrivePlugin"
+        filename="skid_steer_drive/libDdsSkidSteerDrivePlugin.so">
+    <dds_domain_id>0</dds_domain_id>
+    <topic_name_twist>cmd_vel</topic_name_twist>
+    <topic_name_odometry>odom</topic_name_odometry>
+    <topic_name_joint>joint</topic_name_joint>
+    <right_front_joint>wheel_3_link</right_front_joint>
+    <right_rear_joint>wheel_2_link</right_rear_joint>
+    <left_front_joint>wheel_1_link</left_front_joint>
+    <left_rear_joint>wheel_4_link</left_rear_joint>
+    <wheel_separation>0.3</wheel_separation>
+    <wheel_diameter>0.1</wheel_diameter>
+    <wheel_torque>1000</wheel_torque>
+    <update_rate>100</update_rate>
+    <covariance_x>0.0001</covariance_x>
+    <covariance_y>0.0001</covariance_y>
+    <covariance_yaw>0.01</covariance_yaw>
+</plugin>
+</gazebo> -->
+<!-- <gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>100.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <leftFrontJoint>wheel_1_link</leftFrontJoint>
+    <rightFrontJoint>wheel_3_link</rightFrontJoint>
+    <leftRearJoint>wheel_4_link</leftRearJoint>
+    <rightRearJoint>wheel_2_link</rightRearJoint>
+    <wheelSeparation>0.3</wheelSeparation>
+    <wheelDiameter>0.1</wheelDiameter>
+    <robotBaseFrame>base_link</robotBaseFrame>
+    <odometryTopic>odom</odometryTopic>
+    <odometryFrame>odom</odometryFrame>
+    <publishOdom>true</publishOdom>
+    <publishWheelJointState>true</publishWheelJointState>
+    <torque>20</torque>
+    <commandTopic>cmd_vel</commandTopic>
+    <broadcastTF>false</broadcastTF>
+    <covariance_x>0.0001</covariance_x>
+    <covariance_y>0.0001</covariance_y>
+    <covariance_yaw>0.01</covariance_yaw>
+  </plugin>
+</gazebo> -->
+
+<!-- <gazebo>
+<plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <updateRate>10.0</updateRate>
+      <robotNamespace>/</robotNamespace>
+      <leftFrontJoint>wheel_1_link</leftFrontJoint>
+      <rightFrontJoint>wheel_3_link</rightFrontJoint>
+      <leftRearJoint>wheel_4_link</leftRearJoint>
+      <rightRearJoint>wheel_2_link</rightRearJoint>
+      <wheelSeparation>0.3</wheelSeparation>
+      <wheelDiameter>0.1</wheelDiameter>
+      <robotBaseFrame>robot_footprint</robotBaseFrame>
+      <torque>10</torque>
+
+      <topicName>cmd_vel</topicName>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+
+      <commandTopic>cmd_vel</commandTopic>
+      <topic_name_twist>cmd_vel</topic_name_twist>
+      <topic_name_odometry>odom</topic_name_odometry>
+      <topic_name_joint>joint</topic_name_joint>
+
+      <broadcastTF>true</broadcastTF>
+
+      <covariance_x>0.0001</covariance_x>
+      <covariance_y>0.0001</covariance_y>
+      <covariance_yaw>0.01</covariance_yaw>
+
+    </plugin>
+
+  </gazebo> -->
+</robot>
